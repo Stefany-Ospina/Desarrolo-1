@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/styless.css') }}">
+</head>
+<body>
+  <header>
+    <h1>{{ heading }}</h1>
+    <p>Sistema de inventario de papelería</p>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; {{ year }} Papelería Central</p>
+  </footer>
+</body>
+</html>

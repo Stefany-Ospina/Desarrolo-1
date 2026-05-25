@@ -1,0 +1,74 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+  <h2>Registrar producto</h2>
+
+  {% if errores %}
+    <div class="errores">
+      <ul>
+        {% for error in errores %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('crear_producto_html') }}">
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" value="{{ form_data.get('nombre', '') }}" required>
+
+    <label for="categoria">Categoría</label>
+    <select id="categoria" name="categoria" required>
+      <option value="">Seleccione una categoría</option>
+      <option value="Escolar" {% if form_data.get('categoria') == 'Escolar' %}selected{% endif %}>Escolar</option>
+      <option value="Oficina" {% if form_data.get('categoria') == 'Oficina' %}selected{% endif %}>Oficina</option>
+      <option value="Arte" {% if form_data.get('categoria') == 'Arte' %}selected{% endif %}>Arte</option>
+      <option value="Tecnología" {% if form_data.get('categoria') == 'Tecnología' %}selected{% endif %}>Tecnología</option>
+    </select>
+
+    <label for="precio">Precio</label>
+    <input type="number" step="0.01" id="precio" name="precio" value="{{ form_data.get('precio', '') }}" required>
+
+    <label for="stock">Stock</label>
+    <input type="number" id="stock" name="stock" value="{{ form_data.get('stock', '') }}" required>
+
+    <label for="Descripcion">Descripcion</label>
+    <input type="text" id="Descripcion" name="Descripcion" value="{{ form_data.get('Descripcion', '') }}" required>
+
+    <button type="submit">Guardar producto</button>
+  </form>
+</section>
+
+<section>
+  <h2>Inventario actual</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Descripcion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for producto in productos %}
+      <tr>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.categoria }}</td>
+        <td>${{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.Descripcion }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5">No hay productos registrados.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
